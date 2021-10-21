@@ -1,21 +1,3 @@
-"""
-pip install requests
-pip install beautifulsoup4
-pip install nltk
-
-python 3 required
-python practice.py > output.txt   # if you want to output to a file
-
-
-echo "# WebScraper" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/natepuppy/WebScraper.git
-git push -u origin main
-"""
-
 import re
 import heapq
 import requests
@@ -38,6 +20,7 @@ class Review:
 
     def __lt__(self, other):
         return self.positivity_score > other.positivity_score
+
 
 """
 This function parses the class info of the divs that contain the information for a specific 
@@ -74,6 +57,7 @@ def get_employee_rating(employee_reviews):
         total_employee_rating += rating
     return total_employee_rating / len(employee_reviews)
 
+
 """
 This combines the ratings with overall_rating being weighted the most, employee_rating the second, 
 and sentiment rating as the lowest weighted contributor. It does this by moving overall_rating into 
@@ -89,6 +73,7 @@ For example:
 """
 def get_total_positivity_score(overall_rating, sentiment_rating, employee_rating=0):
     return ((overall_rating * 100) + employee_rating + sentiment_rating) / 10000
+
 
 """
 Parse the information in page of reviews
@@ -118,6 +103,7 @@ def get_review_info(doc, top_reviews):
         review = Review(reviewer_name, review_text, total_positivity_score)
         heapq.heappush(top_reviews, review)
     return top_reviews
+
 
 """
 This is where each page is requested and loaded
@@ -149,6 +135,7 @@ def print_solution(top_reviews):
         review = heapq.heappop(top_reviews)
         print(review.text)
         print(review.name)
+
 
 """
 This program

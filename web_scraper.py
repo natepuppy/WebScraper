@@ -27,11 +27,6 @@ from nltk.sentiment import SentimentIntensityAnalyzer
 nltk.download('vader_lexicon', quiet=True)
 
 
-
-
-
-
-
 """
 This class models a review, and sets the less than comparator to compare by the positivity_score
 """

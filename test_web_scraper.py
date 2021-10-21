@@ -2,8 +2,6 @@ import unittest
 import web_scraper
 from bs4 import BeautifulSoup
 import heapq
-# from web_scraper import get_total_positivity_score
-
 
 class TestWebScraper(unittest.TestCase):
 
@@ -38,7 +36,6 @@ class TestWebScraper(unittest.TestCase):
         score = web_scraper.get_total_positivity_score(50, 45, 0.9)
         self.assertEqual(score, 0.50459)
 
-
     def test_get_review_info(self):
         with open('test_page.txt', 'r') as file:
             data = file.read()
@@ -65,7 +62,7 @@ class TestWebScraper(unittest.TestCase):
         review = web_scraper.Review("- frodo baggins", "its da best Sam", .485075)
         heapq.heappush(top_reviews, review)
         
-        web_scraper.print_solution(top_reviews)  # length must be 3
+        web_scraper.print_solution(top_reviews)
 
         """
         The following should print:
@@ -76,8 +73,6 @@ class TestWebScraper(unittest.TestCase):
         - frodo baggins
         """
 
-
- 
 
 if __name__ == '__main__':
     unittest.main()

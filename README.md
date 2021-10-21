@@ -1,8 +1,42 @@
-<b>Coding Challenge: “A Dealer For the People”</b>
-The KGB has noticed a resurgence of overly excited reviews for a McKaig Chevrolet Buick, a dealership they have planted in the United States. In order to avoid attracting unwanted attention, you’ve been enlisted to scrape reviews for this dealership from DealerRater.com and uncover the top three worst offenders of these overly positive endorsements.
+<h1>Dependencies</h1>
 
-Your mission, should you choose to accept it, is to write a tool that:
+<h3>Python 3.8 or higher</h3>
 
-scrapes the first five pages of reviews
-identifies the top three most “overly positive” endorsements (using criteria of your choosing, documented in the README)
-outputs these three reviews to the console, in order of severity
+<h3>BeautifulSoup</h3>
+
+pip3 install beautifulsoup4
+
+<h3>Requests</h3>
+
+pip3 install requests
+
+<h3>NLTK</h3>
+
+pip3 install nltk
+
+
+
+<h1>How to Run</h1>
+
+<h3>Main Program</h3>
+
+python3 web_scraper.py
+
+<h3>HUnit Tests</h3>
+
+python3 test_web_scraper.py
+
+
+<h1>Review Positivity Calculation</h1>
+
+  get_total_positivity_score combines the overall rating of a review,  with overall_rating being weighted the most, employee_rating the second, 
+  and sentiment rating as the lowest weighted contributor. It does this by moving overall_rating into 
+  the 100s place, sentiment_rating into the ones place, and sentiment_rating stays in the decimanl places. 
+  Then it normalizes it to be between zero and 1.
+
+For example:
+   overall_rating = 50 (out of 50)
+   employee_rating = 45 (out of 50)
+   sentiment_rating = .36 (out of 1)
+   =
+   total_positivity_score = 0.504536

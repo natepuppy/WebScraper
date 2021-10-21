@@ -5,6 +5,15 @@ pip install nltk
 
 python 3 required
 python practice.py > output.txt   # if you want to output to a file
+
+
+echo "# WebScraper" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/natepuppy/WebScraper.git
+git push -u origin main
 """
 
 import re
@@ -13,6 +22,11 @@ import requests
 from bs4 import BeautifulSoup
 import nltk
 from nltk.sentiment import SentimentIntensityAnalyzer
+
+# Download nltk sentiment analysis neural network
+nltk.download('vader_lexicon', quiet=True)
+
+
 
 
 
@@ -37,7 +51,6 @@ star rating. The number of stars depends on what class the div is. For example:
 This would be a 4.8 out of 5 stars because the "rating-48" in the class info. 
 """
 def get_star_rating(star_div_info):
-    print(type(star_div_info))
     # this gives you all of the class information
     classes = star_div_info['class']
     for i in range(len(classes)):
@@ -95,7 +108,7 @@ def get_review_info(doc, top_reviews):
 
         # Use the nltk (natural language tool kit) library to analyze how positive the review is 
         # based on the built in SentimentIntensityAnalyzer machine learning network
-        sentiment_rating = sia.polarity_scores(review_text)['pos']
+        sentiment_rating = SentimentIntensityAnalyzer().polarity_scores(review_text)['pos']
 
         reviewer_name = reviews[i].find("span", {"class": "italic font-18 black notranslate"}).text
 
@@ -109,6 +122,7 @@ def get_review_info(doc, top_reviews):
         # Create a review to stor in the top_reviews max-heap
         review = Review(reviewer_name, review_text, total_positivity_score)
         heapq.heappush(top_reviews, review)
+    return top_reviews
 
 """
 This is where each page is requested and loaded
@@ -126,14 +140,17 @@ def main_workflow(url, num_pages_to_scrape):
         # Use BeautifulSoup to store and parse the web pages
         doc = BeautifulSoup(result.text, "html.parser")
         get_review_info(doc, top_reviews)
-    # print_solution(top_reviews)
+    print_solution(top_reviews)
 
 
 """
 Print top three on the max-heap
 """
 def print_solution(top_reviews):
-    for _ in range(3):
+    n = 3
+    if len(top_reviews) < n:
+        n = len(top_reviews)
+    for _ in range(n):
         review = heapq.heappop(top_reviews)
         print(review.text)
         print(review.name)
@@ -145,10 +162,6 @@ This program
     3 outputs these three reviews to the console, in order of severity
 """
 if __name__=="__main__":
-    # Download nltk sentiment analysis neural network
-    nltk.download('vader_lexicon', quiet=True)
-    sia = SentimentIntensityAnalyzer()
-
     # Hyperparameters
     url = "https://www.dealerrater.com/dealer/McKaig-Chevrolet-Buick-A-Dealer-For-The-People-dealer-reviews-23685/page1/?filter=ONLY_POSITIVE#link"
     num_pages_to_scrape = 5

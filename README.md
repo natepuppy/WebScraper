@@ -22,7 +22,7 @@ pip3 install nltk
 
 python3 web_scraper.py
 
-<h3>HUnit Tests</h3>
+<h3>Unit Tests</h3>
 
 python3 test_web_scraper.py
 

@@ -33,7 +33,7 @@ python3 test_web_scraper.py
   
 
   overall_rating is weighted the most, employee_rating the second, and sentiment rating is the lowest weighted contributor. get_total_positivity_score weights them by by moving overall_rating into the 100s place, sentiment_rating into the ones place, and sentiment_rating stays in the decimanl places. 
-  Then it normalizes it to be between zero and 1.
+  Then it normalizes it to be between zero and 1. 
 
 <h3>For example</h3>
 
